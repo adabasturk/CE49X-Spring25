@@ -6,7 +6,7 @@ To get started with the course materials, follow these steps:
 Open your terminal (or Git Bash on Windows) and run:
 
 ```bash
-git clone https://github.com/eyuphankoc/CE49X-Spring25.git
+git clone https://github.com/merenozcetin/CE49X-Fall25.git
 ```
 
 This command will create a local copy of the repository on your machine.
@@ -15,7 +15,7 @@ This command will create a local copy of the repository on your machine.
 Change into the repository directory with:
 
 ```bash
-cd CE49X-Spring25
+cd CE49X-Fall25
 ```
 
 ### 3. Ensure You're on the `main` Branch
