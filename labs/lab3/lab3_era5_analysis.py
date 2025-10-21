@@ -34,6 +34,10 @@ def load_era5_data(file_path: str) -> pd.DataFrame:
     df = pd.read_csv(file_path)
     
     # Convert 'timestamp' to datetime and set as index
+    """
+    errors='coerce': When pandas encounters a value that cannot be parsed as a datetime,
+    it converts that value to NaT (Not a Time) instead of raising an error or stopping the conversion process.
+    """
     df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
     df.set_index('timestamp', inplace=True)
     df.sort_index(inplace=True)
@@ -45,8 +49,8 @@ def load_era5_data(file_path: str) -> pd.DataFrame:
 # 2. PATHS TO DATA FILES
 # -------------------------------------------------------------------------
 # Update these paths or make them command-line arguments as needed.
-BERLIN_FILE = "../../datasets/berlin_era5_wind_20241231_20241231.csv"
-MUNICH_FILE = "../../datasets/munich_era5_wind_20241231_20241231.csv"
+BERLIN_FILE = "/Users/ada/CE49X-Spring25/datasets/berlin_era5_wind_20241231_20241231.csv"
+MUNICH_FILE = "/Users/ada/CE49X-Spring25/datasets/munich_era5_wind_20241231_20241231.csv"
 
 
 # -------------------------------------------------------------------------
@@ -60,10 +64,15 @@ def main():
     print("=== Berlin Dataset ===")
     print(df_berlin.info())
     print(df_berlin.head())
+    print("\nShape:", df_berlin.shape)
+    print("\nSummary statistics:\n", df_berlin.describe())
+
 
     print("\n=== Munich Dataset ===")
     print(df_munich.info())
     print(df_munich.head())
+    print("\nShape:", df_munich.shape)
+    print("\nSummary statistics:\n", df_munich.describe())
 
     # ---------------------------------------------------------------------
     # CHECK & CLEAN MISSING DATA
@@ -95,6 +104,8 @@ def main():
     # ---------------------------------------------------------------------
     # TEMPORAL AGGREGATIONS
     # ---------------------------------------------------------------------
+    
+    # Calculates the monthly average wind speed.
     def monthly_average(df: pd.DataFrame, var: str) -> pd.Series:
         """Group by month of the DatetimeIndex and return the mean of 'var'."""
         return df.groupby(df.index.month)[var].mean()
@@ -116,10 +127,11 @@ def main():
         else:
             return 4
 
-    # Assign seasons
+    # Create a new column called 'season' and assign seasons with map function
     df_berlin['season'] = df_berlin.index.month.map(get_season)
     df_munich['season'] = df_munich.index.month.map(get_season)
 
+    # Calculates the seasonal average wind speed.
     berlin_seasonal_wind = df_berlin.groupby('season')['wind_speed'].mean()
     munich_seasonal_wind = df_munich.groupby('season')['wind_speed'].mean()
 
@@ -127,6 +139,9 @@ def main():
     # STATISTICAL ANALYSIS
     # ---------------------------------------------------------------------
     # Extreme Days
+    """
+    Resamples the data by day and calculates the mean of the wind speed.
+    """
     df_berlin_daily = df_berlin.resample('D').mean(numeric_only=True)
     df_munich_daily = df_munich.resample('D').mean(numeric_only=True)
 
@@ -137,6 +152,9 @@ def main():
     print(df_munich_daily['wind_speed'].nlargest(5))
 
     # Diurnal Pattern
+    """
+    Creates a new column called 'hour' and assigns the hour of the day.
+    """
     df_berlin['hour'] = df_berlin.index.hour
     df_munich['hour'] = df_munich.index.hour
 
@@ -148,7 +166,7 @@ def main():
     # ---------------------------------------------------------------------
     # Optional improvements to default Matplotlib appearance:
     plt.rcParams['figure.facecolor'] = 'white'  # White background
-    plt.rcParams['axes.facecolor']   = 'white'
+    plt.rcParams['axes.facecolor']   = 'white' # White background for axes
     plt.rcParams.update({
         'axes.grid'        : True,   # Show grid lines
         'grid.alpha'       : 0.3,    # Light grid lines
@@ -158,7 +176,7 @@ def main():
     })
 
     # 6.1 Monthly Average Wind Speed
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 6)) 
     plt.plot(berlin_monthly_wind.index, berlin_monthly_wind.values, marker='o', label='Berlin')
     plt.plot(munich_monthly_wind.index, munich_monthly_wind.values, marker='o', label='Munich')
     plt.title("Monthly Average Wind Speed (2024)", fontsize=16, pad=10)
