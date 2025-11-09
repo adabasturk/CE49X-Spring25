@@ -1,0 +1,113 @@
+================================================================================
+LAB 4: STATISTICAL ANALYSIS REPORT
+Descriptive Statistics and Probability Distributions
+================================================================================
+
+1. CONCRETE STRENGTH ANALYSIS
+--------------------------------------------------------------------------------
+Sample Size: 100
+Mean: 35.06 MPa
+Median: 34.20 MPa
+Mode: 31.80 MPa
+Standard Deviation: 6.16 MPa
+Variance: 37.98 MPa²
+Range: 25.30 MPa
+IQR: 8.02 MPa
+Skewness: 0.047
+Kurtosis: 2.299
+
+Five-Number Summary:
+  Min: 21.80 MPa
+  Q1: 31.10 MPa
+  Median (Q2): 34.20 MPa
+  Q3: 39.12 MPa
+  Max: 47.10 MPa
+
+Interpretation:
+- Distribution is approximately symmetric.
+- Distribution has lighter tails than normal (platykurtic).
+
+Engineering Implications:
+- The mean strength provides an estimate of expected performance.
+- Standard deviation indicates variability in concrete strength.
+- For quality control, values outside ±2σ may require attention.
+- 95th percentile strength: 45.50 MPa
+- 99th percentile strength: 46.41 MPa
+
+2. MATERIAL COMPARISON ANALYSIS
+--------------------------------------------------------------------------------
+
+Steel:
+  Mean: 399.10 MPa
+  Std: 10.40 MPa
+  CV (Coefficient of Variation): 2.61%
+
+Concrete:
+  Mean: 36.26 MPa
+  Std: 2.22 MPa
+  CV (Coefficient of Variation): 6.12%
+
+Aluminum:
+  Mean: 196.63 MPa
+  Std: 7.63 MPa
+  CV (Coefficient of Variation): 3.88%
+
+Composite:
+  Mean: 299.04 MPa
+  Std: 10.38 MPa
+  CV (Coefficient of Variation): 3.47%
+
+3. PROBABILITY DISTRIBUTION APPLICATIONS
+--------------------------------------------------------------------------------
+
+Binomial Distribution (Quality Control):
+  Scenario: Quality control - 100 components, 5% defect rate
+  P(X = 3): 0.1396
+  P(X ≤ 5): 0.6160
+
+Poisson Distribution (Bridge Load Events):
+  Scenario: Bridge load events - Average 10 heavy trucks per hour
+  P(X = 8): 0.1126
+  P(X > 15): 0.0487
+
+Normal Distribution (Steel Yield Strength):
+  Scenario: Steel yield strength - Mean=250 MPa, Std=15 MPa
+  P(X > 280): 0.0228 (2.28%)
+  95th Percentile: 274.67 MPa
+
+Exponential Distribution (Component Lifetime):
+  Scenario: Component lifetime - Mean=1000 hours
+  P(X < 500): 0.3935
+  P(X > 1500): 0.2231
+
+4. BAYES' THEOREM APPLICATION
+--------------------------------------------------------------------------------
+Scenario: Structural Damage Detection
+Prior Probability (Base Rate): 0.050 (5.0%)
+Test Sensitivity: 0.950 (95.0%)
+Test Specificity: 0.900 (90.0%)
+
+Posterior Probability:
+  P(Damage | Test Positive) = 0.3333 (33.33%)
+
+Interpretation:
+- Even with a positive test result, the probability of actual damage is 33.33%.
+- This is due to the low base rate (5.0%) and false positive rate.
+- Engineering decision-making should consider both test results and prior knowledge.
+
+5. DISTRIBUTION FITTING
+--------------------------------------------------------------------------------
+Fitted Normal Distribution Parameters:
+  Mean (μ): 35.06 MPa
+  Standard Deviation (σ): 6.13 MPa
+
+Sample Statistics:
+  Sample Mean: 35.06 MPa
+  Sample Std: 6.16 MPa
+
+Comparison:
+  The fitted parameters closely match the sample statistics, indicating a good fit to the normal distribution.
+
+================================================================================
+END OF REPORT
+================================================================================
